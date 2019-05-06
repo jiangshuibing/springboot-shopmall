@@ -24,12 +24,12 @@ public interface AdminLoginMapper {
             "select",
             "id, admin_name, pass_word",
             "from admin",
-            "where id = #{id,jdbcType=INTEGER}"
+            "where  admin_name= #{userName,jdbcType=VARCHAR}"
     })
     @Results({
             @Result(column="id", property="id", jdbcType= JdbcType.INTEGER, id=true),
             @Result(column="admin_name", property="adminName", jdbcType=JdbcType.VARCHAR),
             @Result(column="pass_word", property="passWord", jdbcType=JdbcType.VARCHAR)
     })
-    Admin selectByPrimaryKey(Integer id);
+    Admin selectByPrimaryKey(String userName);
 }

@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 
 public interface AdminLoginService {
 
-    Admin selectByPrimaryKey(Integer id);
+    Admin selectByPrimaryKey(String userName);
 }

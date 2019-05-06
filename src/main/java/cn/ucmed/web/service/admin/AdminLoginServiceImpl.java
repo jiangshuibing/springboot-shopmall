@@ -15,7 +15,7 @@ public class AdminLoginServiceImpl implements AdminLoginService{
     private AdminLoginMapper adminLoginMapper;
 
     @Override
-    public Admin selectByPrimaryKey(Integer id) {
-        return adminLoginMapper.selectByPrimaryKey(id);
+    public Admin selectByPrimaryKey(String userName) {
+        return adminLoginMapper.selectByPrimaryKey(userName);
     }
 }

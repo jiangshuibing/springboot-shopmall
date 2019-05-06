@@ -7,6 +7,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.service.ApiInfo;
 
 @SpringBootApplication
 @ServletComponentScan
@@ -17,6 +19,10 @@ public class ShopmallApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShopmallApplication.class, args);
+	}
+
+	private ApiInfo buildApiInfo(){
+		return new ApiInfoBuilder().build();
 	}
 
 }
