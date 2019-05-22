@@ -12,6 +12,10 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new LoginInterceptor())
 //                .addPathPatterns("/**");
                 .excludePathPatterns("/admin", "/admin/login")
+                .excludePathPatterns("/web/admin/css/**")
+                .excludePathPatterns("/web/admin/images/**")
+                .excludePathPatterns("/web/admin/img/**")
+                .excludePathPatterns("/web/admin/js/**")
                 .excludePathPatterns("/swagger-ui.html");
     }
 }

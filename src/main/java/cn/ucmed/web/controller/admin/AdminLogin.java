@@ -2,15 +2,13 @@ package cn.ucmed.web.controller.admin;
 
 import cn.ucmed.web.module.admin.Admin;
 import cn.ucmed.web.service.admin.AdminLoginService;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,31 +23,36 @@ public class AdminLogin {
     private AdminLoginService adminLoginService;
 
     @GetMapping()
-    @ApiOperation("用户登陆跳转")
     public String Index(HttpServletRequest request, Model model, ModelMap map){
-        return "web/admin/adminlogin";
+        return "web/admin/login";
     }
 
+    @ResponseBody
     @PostMapping(value = "/login")
-    @ApiOperation("登陆")
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "userName", value = "userName", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "passWord", value = "passWord", required = true, dataType = "String", paramType = "path")
-    })
-    public String Login(HttpServletRequest request, Model model, ModelMap map,
-                        @PathVariable(value = "userName") final String userName,
-                        @PathVariable(value = "passWord") final String passWord){
+    public JSONObject Login(HttpServletRequest request, Model model, ModelMap map){
+        String userName = request.getParameter("userName");
+        String passWord = request.getParameter("passWord");
+        JSONObject res = new JSONObject();
         Admin admin = adminLoginService.selectByPrimaryKey(userName);
         if(admin == null){
             // 登录名错误
+            res.put("code", 500);
+            res.put("message", "用户名错误");
         }else if(!passWord.equals(admin.getPassWord())){
             // 密码错误
+            res.put("code", 500);
+            res.put("message", "密码错误");
         }else {
             HttpSession session = request.getSession();
             session.setAttribute("admin", admin);
-            return "web/admin/index";
+            res.put("code", 200);
+            res.put("message", "成功");
         }
-        return null;
+        return res;
     }
 
+    @GetMapping(value = "/shop")
+    public String IndexTest(HttpServletRequest request, Model model, ModelMap map){
+        return "web/admin/index";
+    }
 }

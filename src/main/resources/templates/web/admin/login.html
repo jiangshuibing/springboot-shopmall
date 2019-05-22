@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta name="Generator" content="EditPlus®">
@@ -9,9 +9,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
 	<meta name="renderer" content="webkit">
 	<title>登录.云购物商城</title>
-	<link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="css/base.css">
-	<link rel="stylesheet" type="text/css" href="css/home.css">
+	<link rel="shortcut icon" type="image/x-icon" href="/web/admin/img/icon/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="/web/admin/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/web/admin/css/home.css">
+	<script src="/web/admin/js/jquery.js"></script>
 </head>
 <body>
 
@@ -30,26 +31,25 @@
 			<div class="fl"></div>
 			<div class="fr pc-login-box">
 				<div class="pc-login-title"><h2>用户登录</h2></div>
-				<form action="">
 					<div class="pc-sign">
-						<input type="text" placeholder="用户名/邮箱/手机号">
+						<input type="text" id="userName" placeholder="用户名/邮箱/手机号">
 					</div>
 					<div class="pc-sign">
-						<input type="password" placeholder="请输入您的密码">
+						<input type="password" id="passWord" placeholder="请输入您的密码">
 					</div>
 					<div class="pc-submit-ss">
-						<input type="submit" value="登录" placeholder="">
+						<input type="submit" value="登录" placeholder="" onclick="change()">
 					</div>
 					<div class="pc-item-san clearfix">
-						<a href="#"><img src="img/icon/weixin.png" alt="">微信登录</a>
-						<a href="#"><img src="img/icon/weibo.png" alt="">微博登录</a>
-						<a href="#" style="margin-right:0"><img src="img/icon/tengxun.png" alt="">QQ登录</a>
+						<a href="#"><img src="web/admin/img/icon/weixin.png" alt="">微信登录</a>
+						<a href="#"><img src="web/admin/img/icon/weibo.png" alt="">微博登录</a>
+						<a href="#" style="margin-right:0"><img src="web/admin/img/icon/tengxun.png" alt="">QQ登录</a>
 					</div>
 					<div class="pc-reg">
 						<a href="#">忘记密码</a>
-						<a href="register.html" class="red">免费注册</a>
+						<a href="/web/admin/register.html" class="red">免费注册</a>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -65,4 +65,27 @@
 </footer>
 
 </body>
+<script th:inline="javascript" type="text/javascript">
+	function change() {
+		$.ajax({
+			type: 'POST',
+			url: "/admin/login",
+			data: {
+				userName:$("#userName").val(),
+				passWord:$("#passWord").val()
+			},
+			success: function (data) {
+				if (data.code==200){
+					window.location.href = "/admin/shop";
+				}else {
+					alert(data.message);
+				}
+			},
+			error: function (data) {
+				alert(data.message);
+			}
+		});
+	}
+
+</script>
 </html>
