@@ -84,6 +84,13 @@
 			<!--<artifactId>mybatis-plus-generator</artifactId>-->
 			<!--<version>3.0.1</version>-->
 		<!--</dependency>-->
+
+		<!--阿里druid数据源-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.18</version>
+		</dependency>
 	</dependencies>
 
 
